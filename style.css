@@ -343,3 +343,21 @@ body{
 .logo{
   box-shadow: 0 10px 24px rgba(0,0,0,.45) !important;
 }
+/* ===== FIX SELECT TRÊN WINDOWS ===== */
+select{
+  background-color: #0f1420;
+  color: #e5e7eb;
+}
+
+/* OPTION (PHẦN DANH SÁCH) */
+select option{
+  background-color: #0f1420;
+  color: #e5e7eb;
+}
+
+/* OPTION KHI HOVER / CHỌN */
+select option:hover,
+select option:checked{
+  background-color: #1b2338;
+  color: #f5d76e;
+}
