@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Tiên Phong – Biển số đẹp Toàn quốc</title>
+  <meta name="description" content="Tiên Phong – Kho biển số đẹp Toàn quốc: tứ quý, ngũ quý, tam hoa, lộc phát. Tư vấn nhanh qua Zalo." />
+
+  <!-- OpenGraph cơ bản -->
+  <meta property="og:title" content="Tiên Phong – Biển số đẹp Toàn quốc" />
+  <meta property="og:description" content="Tìm nhanh – lọc chuẩn – tư vấn 24/7. Xem chi tiết từng biển và nhắn Zalo có sẵn nội dung." />
+  <meta property="og:image" content="logo.png" />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container topbar__inner">
+    <a class="brand" href="#top">
+      <img src="logo.png" class="logo" alt="Tiên Phong" />
+      <div>
+        <div class="brand__name">TIÊN PHONG</div>
+        <div class="brand__tag">Biển số đẹp Toàn quốc · Tư vấn nhanh qua Zalo</div>
+      </div>
+    </a>
+
+    <nav class="topbar__right">
+      <a class="btn btn--ghost" href="#sanpham">Kho biển</a>
+      <a class="btn btn--primary" href="#lienhe">Liên hệ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Kho biển số đẹp <span class="gold">Tiên Phong</span></h1>
+    <p class="muted">Tìm nhanh – lọc chuẩn – xem chi tiết.</p>
+
+    <div class="searchrow" id="sanpham">
+      <input id="q" placeholder="Tìm biển (vd: 999.56 / 686.86 / 99AA-888...)" />
+      <button id="btnSearch" class="btn btn--primary">Tìm</button>
+      <button id="btnReset" class="btn btn--ghost">Reset</button>
+    </div>
+
+    <div class="filters">
+      <select id="region">
+        <option value="">Khu vực (tất cả)</option>
+        <option value="Bắc Ninh">Bắc Ninh (98–99)</option>
+        <option value="Hà Nội">Hà Nội</option>
+        <option value="HCM">HCM</option>
+      </select>
+
+      <select id="vehicle">
+        <option value="">Loại (tất cả)</option>
+        <option value="Ô tô">Ô tô</option>
+        <option value="Xe máy">Xe máy</option>
+      </select>
+
+      <select id="beauty">
+        <option value="">Dạng đẹp (tất cả)</option>
+        <option value="Ngũ quý">Ngũ quý</option>
+        <option value="Tứ quý">Tứ quý</option>
+        <option value="Tam hoa">Tam hoa</option>
+        <option value="Sảnh tiến">Sảnh tiến</option>
+        <option value="Lộc phát">Lộc phát</option>
+        <option value="Thần tài">Thần tài</option>
+        <option value="Gánh">Gánh</option>
+        <option value="Độc lạ">Độc lạ</option>
+      </select>
+
+      <select id="status">
+        <option value="">Trạng thái (tất cả)</option>
+        <option value="available">Còn hàng</option>
+        <option value="sold">Đã bán</option>
+      </select>
+    </div>
+
+    <div class="toolrow">
+      <label class="toggle">
+        <input id="hideSold" type="checkbox" checked />
+        <span>Ẩn biển đã bán</span>
+      </label>
+
+      <select id="sort">
+        <option value="newest">Sắp xếp: đề xuất</option>
+        <option value="plateAsc">Biển: A → Z</option>
+        <option value="plateDesc">Biển: Z → A</option>
+        <option value="priceDesc">Giá: cao → thấp</option>
+        <option value="priceAsc">Giá: thấp → cao</option>
+      </select>
+    </div>
+
+    <div class="hint" id="hint">—</div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <section class="trust" id="uytin">
+    <div class="trust__grid">
+      <div class="trust__card">
+        <div class="trust__title">Uy tín – Minh bạch</div>
+        <div class="muted">Thông tin rõ ràng, hỗ trợ tư vấn nhanh qua Zalo.</div>
+      </div>
+      <div class="trust__card">
+        <div class="trust__title">Hỗ trợ thủ tục</div>
+        <div class="muted">Hướng dẫn quy trình theo nhu cầu của khách hàng.</div>
+      </div>
+      <div class="trust__card">
+        <div class="trust__title">Chọn biển theo gu</div>
+        <div class="muted">Tứ quý, ngũ quý, sảnh tiến, lộc phát, thần tài…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="statbar">
+    <div class="stat">
+      <div class="stat__num" id="count">0</div>
+      <div class="stat__label">Biển đang hiển thị</div>
+    </div>
+    <div class="stat">
+      <div class="stat__num">Zalo 1 chạm</div>
+      <div class="stat__label">Tự điền nội dung</div>
+    </div>
+    <div class="stat">
+      <div class="stat__num">Biển số đẹp</div>
+      <div class="stat__label">Tiên Phong</div>
+    </div>
+  </section>
+
+  <!-- LIST -->
+  <section id="list" class="list"></section>
+  <div id="empty" class="empty hidden">Không có kết quả phù hợp. Hãy thử đổi từ khóa hoặc nới bộ lọc.</div>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="card">
+      <h2>FAQ – Câu hỏi thường gặp</h2>
+      <details>
+        <summary>Biển đã bán có còn hiển thị không?</summary>
+        <p class="muted">Có. Bạn có thể bật/tắt “Ẩn biển đã bán” để xem lại lịch sử.</p>
+      </details>
+      <details>
+        <summary>Tôi muốn tư vấn theo ngân sách thì làm sao?</summary>
+        <p class="muted">Bấm “Chat Zalo” và ghi ngân sách, mình gợi ý các biển phù hợp.</p>
+      </details>
+      <details>
+        <summary>Dạng biển đẹp là gì (tứ quý, ngũ quý…)?</summary>
+        <p class="muted">Website sẽ tự nhận diện dạng đẹp. Trong trang chi tiết có mô tả ngắn.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="lienhe">
+    <div class="card">
+      <h2>Liên hệ Tiên Phong</h2>
+      <p class="muted">Tư vấn nhanh qua Zalo, hoặc gọi trực tiếp.</p>
+      <div class="contact__actions">
+        <a class="btn btn--primary" id="zaloBtnTop" target="_blank">Chat Zalo</a>
+        <a class="btn btn--ghost" id="callBtn">Gọi ngay</a>
+      </div>
+      <p class="muted small"></b>.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- Floating buttons -->
+<div class="floating">
+  <a class="fab fab--zalo" id="zaloFab" target="_blank">Zalo</a>
+  <a class="fab fab--call" id="callFab">Gọi</a>
+</div>
+
+<!-- MODAL CHI TIẾT -->
+<div class="modal hidden" id="modal">
+  <div class="modal__backdrop" id="modalClose"></div>
+  <div class="modal__card" role="dialog" aria-modal="true">
+    <button class="modal__x" id="modalX">✕</button>
+
+    <div class="modal__title" id="mPlate">—</div>
+    <div class="modal__meta muted" id="mMeta">—</div>
+
+    <div class="modal__badges" id="mBadges"></div>
+
+    <div class="modal__price" id="mPrice">—</div>
+    <div class="modal__desc muted" id="mDesc">—</div>
+
+    <div class="modal__actions">
+      <a class="btn btn--primary" id="mZalo" target="_blank">Chat Zalo (đã điền sẵn)</a>
+      <button class="btn btn--ghost" id="mCopy">Copy link</button>
+    </div>
+
+    <div class="muted small">Mẹo: Bạn có thể gửi link này cho khách để xem đúng biển.</div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
