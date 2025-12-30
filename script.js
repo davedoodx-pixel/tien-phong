@@ -8,8 +8,8 @@
  ************************/
 
 /* ====== CẤU HÌNH LIÊN HỆ ====== */
-const ZALO_URL = "https://zalo.me/0900000000"; // <-- đổi số
-const HOTLINE  = "0900000000";                // <-- đổi số
+const ZALO_URL = "https://zalo.me/0396298999"; // <-- đổi số
+const HOTLINE  = "0396298999";                // <-- đổi số
 
 /* ====== HELPERS ====== */
 const $ = (id) => document.getElementById(id);
