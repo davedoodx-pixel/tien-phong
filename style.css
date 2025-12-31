@@ -1,11 +1,13 @@
-/* =========================
-   TIÊN PHONG – style.css (CLEAN)
-   Dark luxury – gold/black
-   Fix: grid lệch, select Windows trắng, backToTop lệch
-   ========================= */
+/* =========================================
+   TIÊN PHONG — style.css (FINAL)
+   Dark Luxury Gold/Black — clean, no banding
+   Fix: stripe/banding, Zalo box, Windows select,
+        floating buttons, backToTop, responsive
+   ========================================= */
 
 :root{
   --bg:#0b0f18;
+
   --panel: rgba(255,255,255,.045);
   --panel2: rgba(255,255,255,.03);
   --line: rgba(255,255,255,.10);
@@ -17,25 +19,48 @@
   --gold2:#f5d76e;
 
   --green:#86efac;
+  --red:#ef4444;
 
   --shadow: 0 16px 44px rgba(0,0,0,.45);
-  --radius:16px;
+  --shadow2: 0 10px 28px rgba(0,0,0,.22);
 
+  --radius:16px;
   --container: 1100px;
+
+  --topbar-bg: rgba(11,15,24,.90);
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
+
 body{
   margin:0;
   font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(900px 520px at 20% 0%, rgba(212,175,55,.14), transparent 60%),
-    radial-gradient(900px 520px at 80% 10%, rgba(245,215,110,.11), transparent 60%),
-    radial-gradient(700px 420px at 50% 100%, rgba(255,255,255,.05), transparent 60%),
-    var(--bg);
+  color:#e5e7eb;
+  background:#0b0f18;
 }
+
+/* Noise nhẹ để chống sọc màn hình (không cần ảnh) */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.055; /* rất nhẹ */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.03) 0px,
+      rgba(255,255,255,.03) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+  mix-blend-mode: overlay;
+}
+
+/* đảm bảo nội dung nằm trên noise */
+body > *{position:relative; z-index:1}
 
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
@@ -52,33 +77,51 @@ a{text-decoration:none;color:inherit}
 
 /* ===== TOPBAR ===== */
 .topbar{
-  position:sticky; top:0; z-index:20;
-  background: rgba(11,15,24,.90);
+  position:sticky;
+  top:0;
+  z-index:50;
+  background: var(--topbar-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255,255,255,.06);
 }
 .topbar__inner{
-  display:flex; align-items:center; justify-content:space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   gap:12px;
   padding:12px 0;
 }
-.brand{display:flex; align-items:center; gap:12px; min-width: 220px}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width: 220px;
+}
 .logo{
-  width:64px; height:64px;
+  width:64px;height:64px;
   border-radius:50%;
   border:2px solid rgba(212,175,55,.9);
   padding:6px;
-  background: rgba(0,0,0,.30);
+  background: rgba(0,0,0,.28);
   object-fit:contain;
   box-shadow: 0 10px 24px rgba(0,0,0,.45);
 }
-.brand__text{display:flex;flex-direction:column;gap:2px}
 .brand__name{
-  font-weight:900; letter-spacing:.8px;
+  font-weight:900;
+  letter-spacing:.8px;
   color: var(--gold2);
 }
-.brand__tag{font-size:12px; color: var(--muted)}
-.topbar__right{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+.brand__tag{
+  font-size:12px;
+  color: var(--muted);
+}
+.topbar__right{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
 
 /* ===== BUTTONS ===== */
 .btn{
@@ -94,32 +137,44 @@ a{text-decoration:none;color:inherit}
   gap:8px;
   transition: transform .06s ease, background .2s ease, border-color .2s ease;
   user-select:none;
+  white-space:nowrap;
 }
 .btn:hover{background: rgba(255,255,255,.10)}
 .btn:active{transform: translateY(1px)}
+
 .btn--primary{
   border-color: rgba(212,175,55,.55);
   background: rgba(212,175,55,.16);
   font-weight:900;
 }
 .btn--primary:hover{background: rgba(212,175,55,.24)}
+
 .btn--ghost{
   border-color: rgba(245,215,110,.25);
   background: rgba(245,215,110,.10);
 }
 
 /* ===== HERO ===== */
-.hero{padding:18px 0 10px}
-.hero h1{margin:0 0 6px;font-size:34px; line-height:1.15}
-.hero p{margin:0; color: var(--muted)}
+.hero{
+  padding:18px 0 10px;
+}
+.hero h1{
+  margin:0 0 6px;
+  font-size:34px;
+  line-height:1.15;
+}
+.hero p{margin:0;color:var(--muted)}
 
 .searchrow{
-  display:flex; gap:10px; flex-wrap:wrap;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
   margin:12px 0 10px;
   align-items:center;
 }
 .searchrow input{
-  flex:1; min-width:240px;
+  flex:1;
+  min-width:240px;
   padding:12px 12px;
   border-radius:12px;
   border:1px solid var(--line);
@@ -136,97 +191,130 @@ a{text-decoration:none;color:inherit}
   gap:10px;
 }
 
-/* ===== FIX SELECT Windows trắng ===== */
+/* ===== SELECT (Windows-safe) ===== */
 select{
   width:100%;
   padding:11px 12px;
   border-radius:12px;
   border:1px solid var(--line);
-  background: #0f1420; /* cố định để Windows không trắng */
+  background:#0f1420;
   color: var(--text);
   outline:none;
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
 }
 select:focus{border-color: rgba(212,175,55,.55)}
-select option{
-  background: #0f1420;
-  color: var(--text);
-}
-select option:checked{
-  background:#1b2338;
-  color: var(--gold2);
-}
+select option{background:#0f1420;color:var(--text)}
+select option:checked{background:#1b2338;color:var(--gold2)}
 
 .toolrow{
   margin-top:10px;
-  display:flex; gap:10px;
+  display:flex;
+  gap:10px;
   flex-wrap:wrap;
   align-items:center;
   justify-content:space-between;
 }
-.toggle{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
+.toggle{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  color:var(--muted);
+  font-size:13px;
+}
 .toggle input{transform: translateY(1px)}
-.hint{margin-top:10px;font-size:13px;color:var(--muted)}
+.hint{
+  margin-top:10px;
+  font-size:13px;
+  color:var(--muted);
+}
 
-/* ===== TRUST / STAT ===== */
+/* ===== TRUST ===== */
 .trust{padding:10px 0 2px}
-.trust__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.trust__grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:10px;
+}
 .trust__card{
   padding:14px;
   border-radius:var(--radius);
   border:1px solid rgba(255,255,255,.08);
   background: var(--panel);
-  box-shadow: 0 10px 28px rgba(0,0,0,.22);
+  box-shadow: var(--shadow2);
 }
-.trust__title{font-weight:900;color:var(--gold2);margin-bottom:6px}
+.trust__title{
+  font-weight:900;
+  color: var(--gold2);
+  margin-bottom:6px;
+}
 
+/* ===== STATS ===== */
 .statbar{
   display:grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
   gap:10px;
   margin:10px 0 14px;
+  align-items:stretch;
 }
 .stat{
   padding:12px;
   border-radius:var(--radius);
   border:1px solid rgba(255,255,255,.08);
   background: var(--panel);
+  box-shadow: var(--shadow2);
+
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  justify-content:center;
+  min-height:96px;
 }
 .stat__num{font-weight:900;font-size:18px;color:var(--gold2)}
 .stat__label{font-size:12px;color:var(--muted)}
-/* Zalo 1 chạm clickable */
+
 .stat--zalo{cursor:pointer}
 .stat--zalo:hover{transform: translateY(-1px)}
+
+/* nút zaloOneTap nếu bạn có dùng */
+#zaloOneTap{
+  width: fit-content;
+  max-width:100%;
+}
 
 /* ===== LIST ===== */
 .list{
   display:grid;
   grid-template-columns: repeat(2, minmax(0,1fr));
   gap:12px;
-  padding: 10px 0 18px;
+  padding:10px 0 18px;
 }
 
-/* FIX lệch khung: không cho item tự tăng chiều ngang */
 .item{
   width:100%;
   padding:14px;
   border-radius:var(--radius);
   border:1px solid rgba(255,255,255,.08);
   background: var(--panel);
-  box-shadow: 0 10px 28px rgba(0,0,0,.22);
+  box-shadow: var(--shadow2);
   overflow:hidden;
 }
 .item:hover{border-color: rgba(212,175,55,.25)}
-.item__top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
 
+.item__top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
 .plate{
   font-size:22px;
   font-weight:900;
   letter-spacing:.6px;
   color: var(--gold2);
 }
+
 .tags{
   display:flex;
   flex-wrap:wrap;
@@ -242,16 +330,19 @@ select option:checked{
   font-size:12px;
   font-weight:900;
   white-space:nowrap;
+  border:1px solid transparent;
 }
+
+/* sold/available */
 .item.sold{opacity:.58;filter: grayscale(.2)}
 .badge--available{
   background: rgba(212,175,55,.12);
-  border:1px solid rgba(212,175,55,.55);
+  border-color: rgba(212,175,55,.55);
   color: var(--text);
 }
 .badge--sold{
-  background: rgba(220,38,38,.18);
-  border:1px solid rgba(220,38,38,.45);
+  background: rgba(239,68,68,.16);
+  border-color: rgba(239,68,68,.45);
   color:#fff;
 }
 
@@ -272,13 +363,14 @@ select option:checked{
   border-radius:var(--radius);
   border:1px dashed rgba(255,255,255,.18);
   color: var(--muted);
-  margin-bottom: 18px;
+  margin-bottom:18px;
 }
 .card{
   padding:16px;
   border-radius:var(--radius);
   border:1px solid rgba(255,255,255,.08);
   background: var(--panel);
+  box-shadow: var(--shadow2);
 }
 
 /* ===== FAQ ===== */
@@ -286,11 +378,11 @@ select option:checked{
 details{padding:10px 0;border-top:1px solid rgba(255,255,255,.08)}
 details:first-of-type{border-top:none}
 summary{cursor:pointer;font-weight:800;color:var(--gold2)}
-details p{margin:10px 0 0; color: var(--muted); line-height:1.6}
+details p{margin:10px 0 0;color:var(--muted);line-height:1.6}
 
 /* ===== CONTACT ===== */
 .contact{padding:10px 0 40px}
-.contact__actions{display:flex;gap:10px;flex-wrap:wrap}
+.contact__actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
 /* ===== FLOATING BUTTONS ===== */
 .floating{
@@ -300,12 +392,12 @@ details p{margin:10px 0 0; color: var(--muted); line-height:1.6}
   display:flex;
   flex-direction:column;
   gap:10px;
-  z-index:30;
+  z-index:999;
 }
 .fab{
-  width:64px;
-  height:48px;
-  padding:0 14px;
+  width:72px;
+  height:46px;
+  padding:0;
   border-radius:999px;
   border:1px solid rgba(255,255,255,.14);
   background: rgba(255,255,255,.10);
@@ -314,15 +406,20 @@ details p{margin:10px 0 0; color: var(--muted); line-height:1.6}
   display:flex;
   align-items:center;
   justify-content:center;
+
+  /* chống bị giãn như card */
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: none;
 }
 .fab--zalo{border-color: rgba(59,130,246,.45); background: rgba(59,130,246,.20)}
 .fab--call{border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.20)}
 
-/* ===== BACK TO TOP (FIX LỆCH) ===== */
+/* ===== BACK TO TOP ===== */
 #backToTop{
   position:fixed;
   right:14px;
-  bottom: 140px; /* luôn nằm trên cụm floating */
+  bottom:140px;
   width:44px;
   height:44px;
   border-radius:50%;
@@ -333,22 +430,25 @@ details p{margin:10px 0 0; color: var(--muted); line-height:1.6}
   font-weight:900;
   cursor:pointer;
   display:none;
-  z-index:31; /* cao hơn floating */
+  z-index:999;
   box-shadow: 0 10px 24px rgba(0,0,0,.45);
+
+  align-items:center;
+  justify-content:center;
 }
 #backToTop:hover{background: rgba(212,175,55,.16)}
 
 /* ===== MODAL ===== */
-.modal{position:fixed;inset:0;z-index:40}
+.modal{position:fixed;inset:0;z-index:2000}
 .modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6)}
 .modal__card{
   position:relative;
   margin: 64px auto 0;
-  max-width: 640px;
+  max-width:640px;
   width: calc(100% - 24px);
-  padding: 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,.10);
+  padding:16px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.10);
   background: rgba(11,15,24,.95);
   box-shadow: var(--shadow);
 }
@@ -372,78 +472,19 @@ details p{margin:10px 0 0; color: var(--muted); line-height:1.6}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 920px){
-  .filters{grid-template-columns: repeat(2, minmax(0,1fr));}
-  .list{grid-template-columns: 1fr;}
-  .statbar{grid-template-columns: 1fr;}
-  .trust__grid{grid-template-columns: 1fr;}
+  .filters{grid-template-columns: repeat(2, minmax(0,1fr))}
+  .list{grid-template-columns: 1fr}
+  .statbar{grid-template-columns: 1fr}
+  .trust__grid{grid-template-columns: 1fr}
 }
 
 @media (max-width: 767px){
   .topbar__inner{gap:10px}
   .brand{min-width:unset}
   .logo{width:56px;height:56px}
+
   .hero h1{font-size:28px}
-  .actions{gap:8px}
+
   .btn{padding:10px 12px}
+  .actions{gap:8px}
 }
-/* ===== FIX FLOATING + BACKTOTOP (DÁN CUỐI FILE) ===== */
-
-/* chặn mọi style kiểu card/grid làm nút Zalo phình */
-.floating{
-  position: fixed !important;
-  right: 14px !important;
-  bottom: 14px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
-  z-index: 9999 !important;
-  width: auto !important;
-  max-width: none !important;
-}
-
-/* nút nổi phải là "pill" nhỏ, không được giãn */
-.floating .fab{
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 72px !important;
-  height: 46px !important;
-  padding: 0 !important;
-
-  border-radius: 999px !important;
-  font-weight: 900 !important;
-
-  /* reset mọi layout gây full width */
-  flex: 0 0 auto !important;
-  min-width: 0 !important;
-  max-width: none !important;
-
-  /* tránh bị kế thừa style "card" */
-  background-clip: padding-box !important;
-}
-
-.fab--zalo{
-  border: 1px solid rgba(59,130,246,.45) !important;
-  background: rgba(59,130,246,.20) !important;
-}
-.fab--call{
-  border: 1px solid rgba(34,197,94,.45) !important;
-  background: rgba(34,197,94,.20) !important;
-}
-
-/* Nút lên đầu trang: cố định nằm trên cụm floating */
-#backToTop{
-  position: fixed !important;
-  right: 14px !important;
-  bottom: 140px !important; /* nằm trên 2 nút */
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 50% !important;
-
-  display: none; /* JS sẽ bật */
-  align-items: center !important;
-  justify-content: center !important;
-
-  z-index: 9999 !important;
-}
-
