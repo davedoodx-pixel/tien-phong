@@ -173,7 +173,7 @@ const priceText = price > 0 ? `${price} triệu` : "Liên hệ";
   return Array.from(map.values());
 }
 
-const DATA = buildData();
+const FALLBACK_DATA = buildData();let DATA = [...FALLBACK_DATA];
 
 /* ====== MODAL DETAIL ====== */
 function openModal(p){
@@ -422,6 +422,54 @@ if (backToTop) {
 }
 window.addEventListener("scroll", ()=>{ btt.style.display = window.scrollY>300 ? "block":"none"; });
 btt?.addEventListener("click", ()=>window.scrollTo({top:0,behavior:"smooth"}));
+const SHEET_CSV_URL = "DAN_LINK_CSV_O_DAY"; // link publish CSV
+
+async function fetchCSV(url){
+  const res = await fetch(url, { cache: "no-store" });
+  if(!res.ok) throw new Error("Không tải được CSV");
+  return await res.text();
+}
+
+function parseCSV(csv){
+  const lines = csv.trim().split(/\r?\n/);
+  const headers = lines[0].split(",").map(s=>s.trim());
+  return lines.slice(1).map(line=>{
+    const cols = line.split(",").map(s=>s.trim());
+    const row = {};
+    headers.forEach((h,i)=> row[h] = cols[i] ?? "");
+    row.priceMillion = Number(row.priceMillion || 0);
+    row.sold = row.sold === "1" || row.sold === "true" || row.sold === "TRUE";
+    return row;
+  }).filter(r=>r.plate);
+}
+
+/** Trộn theo plate: Sheet ưu tiên, fallback chỉ thêm nếu Sheet thiếu */
+function mergeByPlate(fallback, sheet){
+  const map = new Map();
+  // 1) đưa fallback vào trước
+  fallback.forEach(p => map.set(p.plate, p));
+  // 2) sheet đè lên (ưu tiên sheet)
+  sheet.forEach(p => map.set(p.plate, { ...map.get(p.plate), ...p }));
+  return Array.from(map.values());
+}
+async function boot(){
+  // 1) Luôn có list ngay (fallback)
+  DATA = [...FALLBACK_DATA];
+  initApp(); // hoặc render/applyFilters của bạn
+
+  // 2) Sau đó tải sheet và cập nhật
+  try{
+    const csv = await fetchCSV(SHEET_CSV_URL);
+    const sheetData = parseCSV(csv);
+    DATA = mergeByPlate(FALLBACK_DATA, sheetData);
+    initApp(); // render lại lần nữa với data mới
+  }catch(e){
+    console.warn("Không tải được Google Sheet, dùng fallback", e);
+  }
+}
+
+boot();
+
 async function boot(){
   const csv = await fetchCSV(SHEET_CSV_URL);
   DATA = parseCSV(csv);
