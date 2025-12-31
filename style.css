@@ -389,3 +389,5 @@ select option:checked{
   .actions .btn--ghost{display:none;} /* ẩn Xem chi tiết */
   /* nếu muốn vẫn giữ 1 nút trong card thì chỉ để lại Chat Zalo */
 }
+.stat--zalo{cursor:pointer}
+.stat--zalo:hover{transform:translateY(-2px)}
