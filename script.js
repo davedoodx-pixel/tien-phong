@@ -380,12 +380,14 @@ backToTop.addEventListener("click", () => {
     behavior: "smooth"
   });
 });
-const ZALO_PHONE = "0900000000"; // đổi số bạn
+const ZALO_PHONE = "0396298999"; // đổi số bạn
+
 function setZaloOneTap(text){
   const a = document.getElementById("zaloOneTap");
-  if(!a) return;
+  if (!a) return;
   a.href = `https://zalo.me/${ZALO_PHONE}?text=${encodeURIComponent(text)}`;
 }
+
 setZaloOneTap("Tôi muốn tư vấn biển số đẹp");
 
 function bindCardUpdateZalo(cardEl, plate, priceText){
@@ -396,7 +398,17 @@ function bindCardUpdateZalo(cardEl, plate, priceText){
     setZaloOneTap(msg);
   });
 }
-const btt = document.getElementById("backToTop");
+const backToTop = document.getElementById("backToTop");
+
+if (backToTop) {
+  window.addEventListener("scroll", () => {
+    backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
 window.addEventListener("scroll", ()=>{ btt.style.display = window.scrollY>300 ? "block":"none"; });
 btt?.addEventListener("click", ()=>window.scrollTo({top:0,behavior:"smooth"}));
 async function boot(){
