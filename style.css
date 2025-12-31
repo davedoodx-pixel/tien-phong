@@ -400,3 +400,6 @@ select option:checked{
   display:none;box-shadow:0 10px 24px rgba(0,0,0,.45);
 }
 #backToTop:hover{background:rgba(212,175,55,.16)}
+select{background:#0f1420;color:#e5e7eb}
+select option{background:#0f1420;color:#e5e7eb}
+select option:checked{background:#1b2338;color:#f5d76e}
