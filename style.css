@@ -384,3 +384,8 @@ select option:checked{
 #backToTop:hover{
   background: rgba(212,175,55,.16);
 }
+@media (max-width: 767px){
+  .actions{gap:8px}
+  .actions .btn--ghost{display:none;} /* ẩn Xem chi tiết */
+  /* nếu muốn vẫn giữ 1 nút trong card thì chỉ để lại Chat Zalo */
+}
