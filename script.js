@@ -757,3 +757,22 @@ function init(){
 }
 
 init();
+/***** BACK TO TOP *****/
+const backToTop = document.getElementById("backToTop");
+
+// hiện nút khi kéo xuống
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    backToTop.style.display = "flex";
+  } else {
+    backToTop.style.display = "none";
+  }
+});
+
+// bấm → lên đầu trang mượt
+backToTop.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
