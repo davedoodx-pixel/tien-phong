@@ -776,3 +776,19 @@ backToTop.addEventListener("click", () => {
     behavior: "smooth"
   });
 });
+const ZALO_PHONE = "0900000000"; // đổi số bạn
+function setZaloOneTap(text){
+  const a = document.getElementById("zaloOneTap");
+  if(!a) return;
+  a.href = `https://zalo.me/${ZALO_PHONE}?text=${encodeURIComponent(text)}`;
+}
+setZaloOneTap("Tôi muốn tư vấn biển số đẹp");
+
+function bindCardUpdateZalo(cardEl, plate, priceText){
+  cardEl.addEventListener("click", () => {
+    const msg = priceText
+      ? `Tôi quan tâm biển ${plate} (${priceText}). Nhờ tư vấn giúp tôi.`
+      : `Tôi quan tâm biển ${plate}. Nhờ tư vấn giúp tôi.`;
+    setZaloOneTap(msg);
+  });
+}
