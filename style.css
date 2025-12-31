@@ -361,3 +361,26 @@ select option:checked{
   background-color: #1b2338;
   color: #f5d76e;
 }
+/* ===== NÚT TRỞ VỀ ĐẦU TRANG ===== */
+#backToTop{
+  position: fixed;
+  right: 14px;
+  bottom: 140px; /* nằm trên nút Zalo */
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(212,175,55,.55);
+  background: rgba(11,15,24,.85);
+  color: #f5d76e;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  display: none; /* mặc định ẩn */
+  z-index: 998;
+  box-shadow: 0 10px 24px rgba(0,0,0,.45);
+}
+
+/* hiệu ứng hover */
+#backToTop:hover{
+  background: rgba(212,175,55,.16);
+}
