@@ -107,6 +107,15 @@ function priceByBeauty(beauty){
     default: return 140;
   }
 }
+// Ưu tiên giá trong Google Sheet, nếu không có thì dùng giá theo beauty
+function getPriceMillion(p){
+  const sheetPrice = Number(p.priceMillion || 0);
+  if (sheetPrice > 0) return sheetPrice;
+
+  if (!p.beauty) return 0; // không có beauty -> 0 => "Liên hệ"
+  return priceByBeauty(p.beauty);
+}
+
 
 function beautyDesc(beauty){
   const map = {
@@ -148,7 +157,9 @@ function buildData(){
       if (map.has(plate)) return;
       const digits = digitsOnly(plate);
       const beauty = beautyFromDigits(digits);
-      const priceMillion = priceByBeauty(beauty);
+const price = getPriceMillion(p);
+const priceText = price > 0 ? `${price} triệu` : "Liên hệ";
+
       const region = detectRegion(plate);
       const sold = SOLD_SET.has(plate);
 
