@@ -386,3 +386,63 @@ details p{margin:10px 0 0; color: var(--muted); line-height:1.6}
   .actions{gap:8px}
   .btn{padding:10px 12px}
 }
+/* ===== FIX FLOATING + BACKTOTOP (DÁN CUỐI FILE) ===== */
+
+/* chặn mọi style kiểu card/grid làm nút Zalo phình */
+.floating{
+  position: fixed !important;
+  right: 14px !important;
+  bottom: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  z-index: 9999 !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* nút nổi phải là "pill" nhỏ, không được giãn */
+.floating .fab{
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 72px !important;
+  height: 46px !important;
+  padding: 0 !important;
+
+  border-radius: 999px !important;
+  font-weight: 900 !important;
+
+  /* reset mọi layout gây full width */
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+
+  /* tránh bị kế thừa style "card" */
+  background-clip: padding-box !important;
+}
+
+.fab--zalo{
+  border: 1px solid rgba(59,130,246,.45) !important;
+  background: rgba(59,130,246,.20) !important;
+}
+.fab--call{
+  border: 1px solid rgba(34,197,94,.45) !important;
+  background: rgba(34,197,94,.20) !important;
+}
+
+/* Nút lên đầu trang: cố định nằm trên cụm floating */
+#backToTop{
+  position: fixed !important;
+  right: 14px !important;
+  bottom: 140px !important; /* nằm trên 2 nút */
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+
+  display: none; /* JS sẽ bật */
+  align-items: center !important;
+  justify-content: center !important;
+
+  z-index: 9999 !important;
+}
