@@ -100,13 +100,30 @@ a{text-decoration:none;color:inherit}
   border-bottom-color: rgba(212,175,55,.22);
 }
 
+/* ===== TOPBAR CÂN ĐỐI ===== */
 .topbar__inner{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:16px;
   padding:12px 0;
 }
+
+/* giới hạn chiều rộng logo + chữ để không đẩy nút */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  max-width: 70%;
+}
+
+/* nút bên phải gọn gàng */
+.topbar__right{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+
 
 .brand{
   display:flex;
@@ -503,4 +520,9 @@ details p{margin:10px 0 0;color:var(--muted);line-height:1.6}
 
   .btn{padding:10px 12px}
   .actions{gap:8px}
+}
+@media (max-width: 767px){
+  .brand__tag{
+    display:none;
+  }
 }
