@@ -405,3 +405,18 @@ async function boot(){
 }
 
 boot();
+// ===== PIN TOPBAR =====
+const topbar = document.querySelector(".topbar");
+
+function pinTopbar(){
+  if(!topbar) return;
+  if(window.scrollY > 10){
+    topbar.classList.add("is-scrolled");
+  }else{
+    topbar.classList.remove("is-scrolled");
+  }
+}
+
+window.addEventListener("scroll", pinTopbar);
+pinTopbar();
+
