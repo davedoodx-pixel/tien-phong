@@ -38,6 +38,8 @@ body{
   font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   color:#e5e7eb;
   background:#0b0f18;
+   padding-top: 88px;
+
 }
 
 /* Noise nhẹ để chống sọc màn hình (không cần ảnh) */
@@ -76,14 +78,28 @@ a{text-decoration:none;color:inherit}
 }
 
 /* ===== TOPBAR ===== */
+/* ===== TOPBAR PIN CỐ ĐỊNH ===== */
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background: var(--topbar-bg);
-  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+
+  background: rgba(11,15,24,.90);
   border-bottom: 1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(8px);
+
+  transition: background .25s ease, box-shadow .25s ease;
 }
+
+/* khi cuộn xuống */
+.topbar.is-scrolled{
+  background: rgba(8,12,20,.96);
+  box-shadow: 0 14px 34px rgba(0,0,0,.45);
+  border-bottom-color: rgba(212,175,55,.22);
+}
+
 .topbar__inner{
   display:flex;
   align-items:center;
