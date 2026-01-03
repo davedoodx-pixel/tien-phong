@@ -10,7 +10,7 @@
 
 /* ====== CẤU HÌNH ====== */
 const SHEET_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-
+  "https://docs.google.com/spreadsheets/d/1jui0UXcZamr3LF2nKL4M0dsLyBS9bdA17gCHpPfqGck/edit?usp=drivesdk
 1vROIThG1QbSzDINvJapE6L08TEuSlzRpapJjON7RiMjatiorkdfNdxp
 VoB3psWh_mpgfTwDiOfqcC-s/pub?output=tsv1vQYZuewLsaj81zpC4qUTcDxLRwHhU5kf8739QCbaDP88m0PWsyWM1Dc8M0zhRZBSXTnWKOztPeFLk0t/pub?output=tsv";
 
