@@ -1,5 +1,5 @@
 /***********************
- * TIÊN PHONG - script.js (CLEAN PRO)
+ * TIÊN PHONG - (CLEAN PRO)
  * - Load data from Google Sheet (TSV/CSV)
  * - Auto set beauty from digits (no beauty column needed)
  * - Filters / Sort / Hide sold
