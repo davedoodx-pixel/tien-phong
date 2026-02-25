@@ -343,7 +343,7 @@ select option:checked{background:#1b2338;color:var(--gold2)}
 }
 .plate{
   display:inline-block;
-  padding:12px 20px;
+  padding:8px 20px;
 
 background: linear-gradient(
   145deg,
