@@ -44,7 +44,6 @@ function detectVehicle(plate){
   if (/^[A-Z]{2}$/.test(letters)) return "Xe máy";
   return "Ô tô";
 }
-}
 /* ====== BEAUTY AUTO ====== */
 function beautyFromDigits(d){
   if (/(\d)\1{4}/.test(d)) return "Ngũ quý";
