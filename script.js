@@ -139,21 +139,25 @@ async function loadFromSheet(){
 
   // map sheet rows => items
   const items = rows
-    .map(r => {
-      const plate = normalizePlate(r["Biển số"]);
-      if (!plate || !isPlate(plate)) return null;
+.map(r => {
+  const plate = normalizePlate(r["Biển số"]);
+  if (!plate || !isPlate(plate)) return null;
 
-      const digits = digitsOnly(plate);
-      const beauty = beautyFromDigits(digits);
-
+  const digits = digitsOnly(plate);
+  const beauty = beautyFromDigits(digits);
   const region = detectRegion(plate);
-  plate,
-  digits,
-  beauty,
-  region,
-  vehicle: detectVehicle(plate),  // ✅ dùng đúng
-  priceMillion,
-};
+  const priceMillion = Number(r["Giá khách"] || 0);
+
+  return {
+    plate,
+    digits,
+    beauty,
+    region,
+    vehicle: detectVehicle(plate),
+    priceMillion,
+    sold: false
+  };
+})
     })
     .filter(Boolean);
 
