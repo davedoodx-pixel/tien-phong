@@ -34,7 +34,7 @@ function detectRegion(plate){
   // Theo yêu cầu: 98 & 99 (cả ô tô + xe máy) => Bắc Ninh
   if (plate.startsWith("98") || plate.startsWith("99")) return "Bắc Ninh";
   if (plate.startsWith("30") || plate.startsWith("29")) return "Hà Nội";
-  if (plate.startsWith("50") || plate.startsWith("51")) return "HCM";
+  if (plate.startsWith("50") || plate.startsWith("51")) return "TP HCM";
   return "Khác";
 }
 function detectVehicle(plate){
@@ -307,7 +307,6 @@ function apply(){
   const region = $("region")?.value || "";
   const vehicle = $("vehicle")?.value || "";
   const beauty = $("beauty")?.value || "";
-  const hideSold = $("hideSold")?.checked ?? true;
   const sort = $("sort")?.value || "";
 
   let out = DATA.filter(p => {
@@ -331,8 +330,6 @@ function apply(){
   if (region) applied.push(`Khu vực: ${region}`);
   if (vehicle) applied.push(`Loại: ${vehicle}`);
   if (beauty) applied.push(`Dạng: ${beauty}`);
-  if (status) applied.push(`Trạng thái: ${status === "sold" ? "Đã bán" : "Còn hàng"}`);
-  if (hideSold) applied.push("Đang ẩn đã bán");
 
   setHint(applied.length ? applied.join(" • ") : "Đang hiển thị tất cả.");
   render(out);
