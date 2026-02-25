@@ -158,7 +158,6 @@ async function loadFromSheet(){
     sold: false
   };
 })
-    })
     .filter(Boolean);
 
   // loại trùng theo plate (plate cuối cùng sẽ đè)
