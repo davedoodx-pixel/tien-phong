@@ -38,12 +38,12 @@ function detectRegion(plate){
   return "Khác";
 }
 function detectVehicle(plate){
-  const prefix = plate.split("-")[0];
-  const letters = prefix.slice(2);
+  const prefix = plate.split("-")[0];   // ví dụ 30AB
+  const letters = prefix.slice(2);      // lấy phần chữ sau 2 số tỉnh
 
   if (/^[A-Z]{2}$/.test(letters)) return "Xe máy";
-
   return "Ô tô";
+}
 }
 /* ====== BEAUTY AUTO ====== */
 function beautyFromDigits(d){
@@ -148,18 +148,6 @@ async function loadFromSheet(){
    const region = (r["Khu vực"] && r["Khu vực"].trim())
   ? r["Khu vực"].trim()
   : detectRegion(plate);
-      function detectVehicle(plate){
-  // Lấy phần trước dấu -
-  const prefix = plate.split("-")[0];
-
-  // Bỏ 2 số đầu tỉnh
-  const letters = prefix.slice(2);
-
-  // Nếu có đúng 2 chữ cái => xe máy
-  if (/^[A-Z]{2}$/.test(letters)) return "Xe máy";
-
-  return "Ô tô";
-}
 const vehicle = (r.vehicle && r.vehicle.trim()) ? r.vehicle.trim() : "Ô tô";      const priceMillion = Number(r["Giá khách"] || 0);
       const sold = String(r.sold || "0").trim() === "1";
 
