@@ -147,7 +147,7 @@ async function loadFromSheet(){
    const region = (r["Khu vực"] && r["Khu vực"].trim())
   ? r["Khu vực"].trim()
   : detectRegion(plate);
-const vehicle = (r.vehicle && r.vehicle.trim()) ? r.vehicle.trim() : "Ô tô";      const priceMillion = Number(r["Giá khách"] || 0);
+  const priceMillion = Number(r["Giá khách"] || 0);
       const sold = String(r.sold || "0").trim() === "1";
 
 return {
