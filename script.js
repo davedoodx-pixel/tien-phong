@@ -10,7 +10,7 @@
 
 /* ====== CẤU HÌNH ====== */
 const SHEET_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQYZuewLsaj81zpC4qUTcDxLRwHhU5kf8739QCbaDP88m0PWsyWM1Dc8M0zhRZBSXTnWKOztPeFLk0t/pub?output=csv";
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGJYtpEuCETMz-ZDWaOAqComosxmBY3-FcfIgcP8Vo9g6ZehiCJZjquF_CkgLKLUary2_uaYW8ctT_/pub?output=csv";
 
 const ZALO_PHONE = "0396298999";
 const ZALO_BASE  = `https://zalo.me/${ZALO_PHONE}`;
@@ -132,19 +132,29 @@ async function loadFromSheet(){
   // map sheet rows => items
   const items = rows
     .map(r => {
-      const plate = normalizePlate(r.plate);
+      const plate = normalizePlate(r["Biển số"]);
       if (!plate || !isPlate(plate)) return null;
 
       const digits = digitsOnly(plate);
       const beauty = beautyFromDigits(digits);
 
-      const region = (r.region && r.region.trim()) ? r.region.trim() : detectRegion(plate);
+   const region = (r["Khu vực"] && r["Khu vực"].trim())
+  ? r["Khu vực"].trim()
+  : detectRegion(plate);
       const vehicle = (r.vehicle && r.vehicle.trim()) ? r.vehicle.trim() : "Ô tô";
 
-      const priceMillion = Number(r.priceMillion || 0);
+      const priceMillion = Number(r["Giá khách"] || 0);
       const sold = String(r.sold || "0").trim() === "1";
 
-      return { plate, digits, beauty, region, vehicle, priceMillion, sold };
+      return {
+  plate,
+  digits,
+  beauty,
+  region,
+  vehicle: "Ô tô",
+  priceMillion,
+  sold: false
+};
     })
     .filter(Boolean);
 
