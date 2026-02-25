@@ -297,7 +297,14 @@ function render(list){
     });
   });
 }
-
+function normalizeText(str) {
+  return (str || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // bỏ dấu
+    .replace(/\s+/g, "")             // bỏ khoảng trắng
+    .replace(/\./g, "");             // bỏ dấu chấm
+}
 /* ====== FILTER/SORT ====== */
 function apply(){
   const q = normalize($("q")?.value);
@@ -309,8 +316,8 @@ function apply(){
   let out = DATA.filter(p => {
     const hay = normalize(`${p.plate} ${p.region} ${p.vehicle} ${p.beauty} ${p.digits}`);
     if (q && !hay.includes(q)) return false;
-    if (region && p.region !== region) return false;
-    if (vehicle && p.vehicle !== vehicle) return false;
+if (region && normalizeRegion(p.region) !== normalizeRegion(region))
+  return false;    if (vehicle && p.vehicle !== vehicle) return false;
     if (beauty && p.beauty !== beauty) return false;
 
     return true;
@@ -331,7 +338,15 @@ function apply(){
   setHint(applied.length ? applied.join(" • ") : "Đang hiển thị tất cả.");
   render(out);
 }
+function normalizeRegion(region) {
+  const r = normalizeText(region);
 
+  if (r.includes("hanoi")) return "hanoi";
+  if (r.includes("hochiminh") || r.includes("tphcm") || r === "hcm")
+    return "hcm";
+
+  return r;
+}
 /* ====== EVENTS + INIT ====== */
 function bindEvents(){
   // link liên hệ
