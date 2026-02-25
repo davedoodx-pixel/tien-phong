@@ -269,7 +269,7 @@ function render(list){
             <span>${p.beauty}</span>
           </div>
         </div>
-        ${statusBadge}
+  
       </div>
 
       <div class="item__bottom">
@@ -352,14 +352,12 @@ function bindEvents(){
     if ($("region")) $("region").value = "";
     if ($("vehicle")) $("vehicle").value = "";
     if ($("beauty")) $("beauty").value = "";
-    if ($("status")) $("status").value = "";
-    if ($("hideSold")) $("hideSold").checked = true;
     if ($("sort")) $("sort").value = "";
     setHint("Đang hiển thị tất cả.");
     render(DATA);
   });
 
-  ["region","vehicle","beauty","status","sort","hideSold"].forEach(id => {
+  ["region","vehicle","beauty","sort"].forEach(id => {
     const el = $(id);
     if (!el) return;
     el.addEventListener("change", apply);
