@@ -38,10 +38,13 @@ function detectRegion(plate){
   return "Khác";
 }
 function detectVehicle(plate){
-  const prefix = plate.split("-")[0];   // ví dụ 30AB
-  const letters = prefix.slice(2);      // lấy phần chữ sau 2 số tỉnh
+  plate = plate.trim().toUpperCase();
 
-  if (/^[A-Z]{2}$/.test(letters)) return "Xe máy";
+  const prefix = plate.split("-")[0].trim();
+  const letters = prefix.slice(2).replace(/[^A-Z]/g, "");
+
+  if (letters.length === 2) return "Xe máy";
+
   return "Ô tô";
 }
 /* ====== BEAUTY AUTO ====== */
