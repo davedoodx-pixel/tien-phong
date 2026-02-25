@@ -37,7 +37,14 @@ function detectRegion(plate){
   if (plate.startsWith("50") || plate.startsWith("51")) return "HCM";
   return "Khác";
 }
+function detectVehicle(plate){
+  const prefix = plate.split("-")[0];
+  const letters = prefix.slice(2);
 
+  if (/^[A-Z]{2}$/.test(letters)) return "Xe máy";
+
+  return "Ô tô";
+}
 /* ====== BEAUTY AUTO ====== */
 function beautyFromDigits(d){
   if (/(\d)\1{4}/.test(d)) return "Ngũ quý";
@@ -153,16 +160,15 @@ async function loadFromSheet(){
 
   return "Ô tô";
 }
-const vehicle = (r.vehicle && r.vehicle.trim()) ? r.vehicle.trim() : "Ô tô";
-      const priceMillion = Number(r["Giá khách"] || 0);
+const vehicle = (r.vehicle && r.vehicle.trim()) ? r.vehicle.trim() : "Ô tô";      const priceMillion = Number(r["Giá khách"] || 0);
       const sold = String(r.sold || "0").trim() === "1";
 
-      return {
+return {
   plate,
   digits,
   beauty,
   region,
-  vehicle: "Ô tô",
+  vehicle: detectVehicle(plate),  // ✅ dùng đúng
   priceMillion,
   sold: false
 };
