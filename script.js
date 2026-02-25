@@ -285,8 +285,16 @@ function render(list){
     `;
 
     // chạm card => cập nhật zalo 1 chạm
-    card.addEventListener("click", () => updateOneTapForPlate(p));
+card.addEventListener("click", function(e) {
 
+  // Nếu bấm vào nút thì không làm gì
+  if (e.target.closest(".btn") || e.target.tagName === "A") {
+    return;
+  }
+
+  // Còn lại thì mở chi tiết
+  openModal(p);
+});
     wrap.appendChild(card);
   });
 
@@ -453,4 +461,3 @@ function pinTopbar(){
 
 window.addEventListener("scroll", pinTopbar);
 pinTopbar();
-
