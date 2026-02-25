@@ -146,11 +146,7 @@ async function loadFromSheet(){
       const digits = digitsOnly(plate);
       const beauty = beautyFromDigits(digits);
 
-   const region = (r["Khu vực"] && r["Khu vực"].trim())
-  ? r["Khu vực"].trim()
-  : detectRegion(plate);
-  const priceMillion = Number(r["Giá khách"] || 0);
-return {
+  const region = detectRegion(plate);
   plate,
   digits,
   beauty,
