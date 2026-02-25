@@ -151,8 +151,6 @@ async function loadFromSheet(){
   ? r["Khu vực"].trim()
   : detectRegion(plate);
   const priceMillion = Number(r["Giá khách"] || 0);
-      const sold = String(r.sold || "0").trim() === "1";
-
 return {
   plate,
   digits,
@@ -160,7 +158,6 @@ return {
   region,
   vehicle: detectVehicle(plate),  // ✅ dùng đúng
   priceMillion,
-  sold: false
 };
     })
     .filter(Boolean);
