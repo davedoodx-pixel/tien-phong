@@ -28,7 +28,11 @@ function normalize(s){
 function digitsOnly(plate){
   return (plate || "").replace(/\D/g, "");
 }
-
+function normalizeSearch(str) {
+  return (str || "")
+    .toLowerCase()              // bỏ hoa thường
+    .replace(/[^a-z0-9]/g, "");  // xoá toàn bộ ký tự đặc biệt
+}
 /* ====== REGION RULE ====== */
 function detectRegion(plate){
   if (plate.startsWith("98") || plate.startsWith("99")) return "Bắc Ninh";
@@ -305,15 +309,25 @@ function normalizeText(str) {
 }
 /* ====== FILTER/SORT ====== */
 function apply(){
-  const q = normalize($("q")?.value);
-  const region = $("region")?.value || "";
+const qRaw = $("q")?.value || "";
+const q = normalizeSearch(qRaw);  const region = $("region")?.value || "";
   const vehicle = $("vehicle")?.value || "";
   const beauty = $("beauty")?.value || "";
   const sort = $("sort")?.value || "";
 
   let out = DATA.filter(p => {
-    const hay = normalize(`${p.plate} ${p.region} ${p.vehicle} ${p.beauty} ${p.digits}`);
-    if (q && !hay.includes(q)) return false;
+
+  if (q) {
+    const plateNormalized = normalizeSearch(p.plate);
+    const digitNormalized = normalizeSearch(p.digits);
+
+    if (
+      !plateNormalized.includes(q) &&
+      !digitNormalized.includes(q)
+    ) {
+      return false;
+    }
+  }
 if (region && normalizeRegion(p.region) !== normalizeRegion(region))
   return false;    if (vehicle && p.vehicle !== vehicle) return false;
     if (beauty && p.beauty !== beauty) return false;
