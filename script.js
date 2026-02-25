@@ -31,11 +31,10 @@ function digitsOnly(plate){
 
 /* ====== REGION RULE ====== */
 function detectRegion(plate){
-  // Theo yêu cầu: 98 & 99 (cả ô tô + xe máy) => Bắc Ninh
   if (plate.startsWith("98") || plate.startsWith("99")) return "Bắc Ninh";
   if (plate.startsWith("30") || plate.startsWith("29")) return "Hà Nội";
-  if (plate.startsWith("50") || plate.startsWith("51")) return "TP HCM";
-  return "Khác";
+  if (plate.startsWith("50") || plate.startsWith("51")) return "HCM";
+  return "khac";
 }
 function detectVehicle(plate){
   plate = plate.trim().toUpperCase();
@@ -339,11 +338,19 @@ if (region && normalizeRegion(p.region) !== normalizeRegion(region))
   render(out);
 }
 function normalizeRegion(region) {
-  const r = normalizeText(region);
+  const r = normalize(region)
+    .replace(/\s+/g, "")
+    .replace(/\./g, "");
 
+  // Hà Nội
   if (r.includes("hanoi")) return "hanoi";
-  if (r.includes("hochiminh") || r.includes("tphcm") || r === "hcm")
-    return "hcm";
+
+  // Hồ Chí Minh
+  if (
+    r.includes("hochiminh") ||
+    r.includes("tphcm") ||
+    r.includes("hcm")
+  ) return "hcm";
 
   return r;
 }
