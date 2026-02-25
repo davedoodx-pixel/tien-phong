@@ -33,8 +33,8 @@ function digitsOnly(plate){
 function detectRegion(plate){
   if (plate.startsWith("98") || plate.startsWith("99")) return "Bắc Ninh";
   if (plate.startsWith("30") || plate.startsWith("29")) return "Hà Nội";
-  if (plate.startsWith("50") || plate.startsWith("51")) return "HCM";
-  return "khac";
+  if (plate.startsWith("50") || plate.startsWith("51")) return "TP HCM";
+  return "Khác";
 }
 function detectVehicle(plate){
   plate = plate.trim().toUpperCase();
@@ -341,15 +341,15 @@ function normalizeRegion(region) {
     .replace(/\s+/g, "")
     .replace(/\./g, "");
 
-  // Hà Nội
   if (r.includes("hanoi")) return "hanoi";
 
-  // Hồ Chí Minh
   if (
     r.includes("hochiminh") ||
     r.includes("tphcm") ||
-    r.includes("hcm")
+    r === "hcm"
   ) return "hcm";
+
+  if (r.includes("bacninh")) return "bacninh";
 
   return r;
 }
