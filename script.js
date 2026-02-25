@@ -341,7 +341,6 @@ if (region && normalizeRegion(p.region) !== normalizeRegion(region))
   if (sort === "priceDesc") out.sort((a,b)=>getPriceMillion(b) - getPriceMillion(a));
 
   const applied = [];
-  const qRaw = $("q")?.value?.trim() || "";
   if (qRaw) applied.push(`Từ khóa: "${qRaw}"`);
   if (region) applied.push(`Khu vực: ${region}`);
   if (vehicle) applied.push(`Loại: ${vehicle}`);
