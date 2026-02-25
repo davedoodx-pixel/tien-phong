@@ -10,7 +10,7 @@
 
 /* ====== CẤU HÌNH ====== */
 const SHEET_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQYZuewLsaj81zpC4qUTcDxLRwHhU5kf8739QCbaDP88m0PWsyWM1Dc8M0zhRZBSXTnWKOztPeFLk0t/pubhtml";
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQYZuewLsaj81zpC4qUTcDxLRwHhU5kf8739QCbaDP88m0PWsyWM1Dc8M0zhRZBSXTnWKOztPeFLk0t/pub?output=csv";
 
 const ZALO_PHONE = "0396298999";
 const ZALO_BASE  = `https://zalo.me/${ZALO_PHONE}`;
