@@ -256,10 +256,6 @@ function render(list){
     const card = document.createElement("div");
     card.className = "item" + (p.sold ? " sold" : "");
 
-    const statusBadge = p.sold
-      ? `<span class="badge badge--sold">ĐÃ BÁN</span>`
-      : `<span class="badge badge--available">CÒN HÀNG</span>`;
-
     const price = getPriceMillion(p);
     const priceText = price > 0 ? `${price} triệu` : "Liên hệ";
 
@@ -311,7 +307,6 @@ function apply(){
   const region = $("region")?.value || "";
   const vehicle = $("vehicle")?.value || "";
   const beauty = $("beauty")?.value || "";
-  const status = $("status")?.value || "";
   const hideSold = $("hideSold")?.checked ?? true;
   const sort = $("sort")?.value || "";
 
@@ -321,10 +316,6 @@ function apply(){
     if (region && p.region !== region) return false;
     if (vehicle && p.vehicle !== vehicle) return false;
     if (beauty && p.beauty !== beauty) return false;
-
-    if (hideSold && p.sold) return false;
-    if (status === "sold" && !p.sold) return false;
-    if (status === "available" && p.sold) return false;
 
     return true;
   });
