@@ -1,201 +1,577 @@
+/* =========================================
+   TIÊN PHONG — style.css (FINAL)
+   Dark Luxury Gold/Black — clean, no banding
+   Fix: stripe/banding, Zalo box, Windows select,
+        floating buttons, backToTop, responsive
+   ========================================= */
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <link rel="icon" href="/favicon.png" type="image/png">
-<link rel="shortcut icon" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+:root{
+  --bg:#0b0f18;
 
-  <title>Tiên Phong – Biển số đẹp Toàn quốc</title>
-  <meta name="description" content="Tiên Phong – Kho biển số đẹp Toàn quốc: tứ quý, ngũ quý, tam hoa, lộc phát. Tư vấn nhanh qua Zalo." />
+  --panel: rgba(255,255,255,.045);
+  --panel2: rgba(255,255,255,.03);
+  --line: rgba(255,255,255,.10);
 
-  <!-- OpenGraph cơ bản -->
-  <meta property="og:title" content="Tiên Phong – Biển số đẹp Toàn quốc" />
-  <meta property="og:description" content="Tìm nhanh – lọc chuẩn – tư vấn 24/7. Xem chi tiết từng biển và nhắn Zalo có sẵn nội dung." />
-  <meta property="og:image" content="logo.png" />
-  <meta property="og:type" content="website" />
+  --text:#e5e7eb;
+  --muted:#94a3b8;
 
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  --gold:#d4af37;
+  --gold2:#f5d76e;
 
-<header class="topbar">
-  <div class="container topbar__inner">
-    <a class="brand" href="#top">
-      <img src="logo.png" class="logo" alt="Tiên Phong" />
-      <div>
-        <div class="brand__name">TIÊN PHONG</div>
-        <div class="brand__tag">Biển số đẹp Toàn quốc · Tư vấn nhanh qua Zalo</div>
-      </div>
-    </a>
+  --green:#86efac;
+  --red:#ef4444;
 
-    <nav class="topbar__right">
-      <a class="btn btn--primary" href="#lienhe">Liên hệ</a>
-    </nav>
-  </div>
-</header>
+  --shadow: 0 16px 44px rgba(0,0,0,.45);
+  --shadow2: 0 10px 28px rgba(0,0,0,.22);
 
-<main class="container" id="top">
+  --radius:16px;
+  --container: 1100px;
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Kho biển số đẹp <span class="gold">Tiên Phong</span></h1>
-    <p class="muted">Tìm nhanh – lọc chuẩn – xem chi tiết.</p>
+  --topbar-bg: rgba(11,15,24,.90);
+}
 
-    <div class="searchrow" id="sanpham">
-      <input id="q" placeholder="Tìm biển (vd: 999.56 / 686.86 / 99AA-888...)" />
-      <button id="btnSearch" class="btn btn--primary">Tìm</button>
-      <button id="btnReset" class="btn btn--ghost">Reset</button>
-    </div>
+*{box-sizing:border-box}
+html,body{height:100%}
 
-    <div class="filters">
-      <select id="region">
-        <option value="">Khu vực (tất cả)</option>
-            <option value="hanoi">Hà Nội</option>
-              <option value="hcm">TP HCM</option>
-              <option value="bacninh">Bắc Ninh</option>
-              <option value="khac">Khác</option>
-      </select>
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:#e5e7eb;
+  background:#0b0f18;
+   padding-top: 88px;
 
-      <select id="vehicle">
-        <option value="">Loại (tất cả)</option>
-        <option value="Ô tô">Ô tô</option>
-        <option value="Xe máy">Xe máy</option>
-      </select>
+}
 
-      <select id="beauty">
-        <option value="">Dạng đẹp (tất cả)</option>
-        <option value="Ngũ quý">Ngũ quý</option>
-        <option value="Tứ quý">Tứ quý</option>
-        <option value="Tam hoa">Tam hoa</option>
-        <option value="Sảnh tiến">Sảnh tiến</option>
-        <option value="Lộc phát">Lộc phát</option>
-        <option value="Thần tài">Thần tài</option>
-        <option value="Gánh">Gánh</option>
-        <option value="Độc lạ">Độc lạ</option>
-      </select>
-    </div>
+/* Noise nhẹ để chống sọc màn hình (không cần ảnh) */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.055; /* rất nhẹ */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.03) 0px,
+      rgba(255,255,255,.03) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+  mix-blend-mode: overlay;
+}
 
-    <div class="toolrow">
-      <label class="toggle">
-        <span>Ẩn biển đã bán</span>
-      </label>
+/* đảm bảo nội dung nằm trên noise */
+body > *{position:relative; z-index:1}
 
-      <select id="sort">
-        <option value="newest">Sắp xếp: đề xuất</option>
-        <option value="plateAsc">Biển: A → Z</option>
-        <option value="plateDesc">Biển: Z → A</option>
-        <option value="priceDesc">Giá: cao → thấp</option>
-        <option value="priceAsc">Giá: thấp → cao</option>
-      </select>
-    </div>
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+.hidden{display:none !important}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.gold{color:var(--gold2)}
 
-    <div class="hint" id="hint">—</div>
-  </section>
+.container{
+  max-width: var(--container);
+  margin:0 auto;
+  padding:0 16px;
+}
 
-  <!-- TRUST BAR -->
-  <section class="trust" id="uytin">
-    <div class="trust__grid">
-      <div class="trust__card">
-        <div class="trust__title">Uy tín – Minh bạch</div>
-        <div class="muted">Thông tin rõ ràng, hỗ trợ tư vấn nhanh qua Zalo.</div>
-      </div>
-      <div class="trust__card">
-        <div class="trust__title">Hỗ trợ thủ tục</div>
-        <div class="muted">Hướng dẫn quy trình theo nhu cầu của khách hàng.</div>
-      </div>
-      <div class="trust__card">
-        <div class="trust__title">Chọn biển theo gu</div>
-        <div class="muted">Tứ quý, ngũ quý, sảnh tiến, lộc phát, thần tài…</div>
-      </div>
-    </div>
-  </section>
+/* ===== TOPBAR ===== */
+/* ===== TOPBAR PIN CỐ ĐỊNH ===== */
+.topbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
 
-  <!-- STATS -->
-  <section class="statbar">
-    <div class="stat">
-      <div class="stat__num" id="count">0</div>
-      <div class="stat__label">Biển đang hiển thị</div>
-    </div>
-    <div class="stat">
-  <div class="stat__num">Zalo</div>
-    </div>
-    <div class="stat">
-      <div class="stat__num">Biển số đẹp</div>
-      <div class="stat__label">Tiên Phong</div>
-    </div>
-  </section>
+  background: rgba(11,15,24,.90);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(8px);
 
-  <!-- LIST -->
-  <section id="list" class="list"></section>
-  <div id="empty" class="empty hidden">Không có kết quả phù hợp. Hãy thử đổi từ khóa hoặc nới bộ lọc.</div>
+  transition: background .25s ease, box-shadow .25s ease;
+}
 
-  <!-- FAQ -->
-  <section class="faq" id="faq">
-    <div class="card">
-      <h2>FAQ – Câu hỏi thường gặp</h2>
-      <details>
-        <summary>Biển đã bán có còn hiển thị không?</summary>
-        <p class="muted">Có. Bạn có thể bật/tắt “Ẩn biển đã bán” để xem lại lịch sử.</p>
-      </details>
-      <details>
-        <summary>Tôi muốn tư vấn theo ngân sách thì làm sao?</summary>
-        <p class="muted">Bấm “Chat Zalo” và ghi ngân sách, Chúng tôi sẽ gợi ý các biển phù hợp.</p>
-      </details>
-      <details>
-        <summary>Thủ tục hồ sơ như thế nào?</summary>
-        <p class="muted">Bấm “Chat Zalo” và ghi thắc mắc, Chúng tôi sẽ giải đáp mọi thắc mắc của Quý khách.</p>
-      </details>
-    </div>
-  </section>
+/* khi cuộn xuống */
+.topbar.is-scrolled{
+  background: rgba(8,12,20,.96);
+  box-shadow: 0 14px 34px rgba(0,0,0,.45);
+  border-bottom-color: rgba(212,175,55,.22);
+}
 
-  <!-- CONTACT -->
-  <section class="contact" id="lienhe">
-    <div class="card">
-      <h2>Liên hệ Tiên Phong</h2>
-      <p class="muted">Tư vấn nhanh qua Zalo, hoặc gọi trực tiếp.</p>
-      <div class="contact__actions">
-        <a class="btn btn--primary" id="zaloBtnTop" target="_blank">Chat Zalo</a>
-        <a class="btn btn--ghost" id="callBtn">Gọi ngay</a>
-      </div>
-      <p class="muted small"></p>
-    </div>
-  </section>
+/* ===== TOPBAR CÂN ĐỐI ===== */
+.topbar__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:12px 0;
+}
 
-</main>
+/* giới hạn chiều rộng logo + chữ để không đẩy nút */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  max-width: 70%;
+}
 
-<!-- Floating buttons -->
-<div class="floating">
-  <a id="zaloFab" class="fab fab--zalo" href="#" target="_blank" rel="noopener">Zalo</a>
-  <a id="callFab" class="fab fab--call" href="#" rel="noopener">Gọi</a>
-</div>
+/* nút bên phải gọn gàng */
+.topbar__right{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
 
-<!-- MODAL CHI TIẾT -->
-<div class="modal hidden" id="modal">
-  <div class="modal__backdrop" id="modalClose"></div>
-  <div class="modal__card" role="dialog" aria-modal="true">
-    <button class="modal__x" id="modalX">✕</button>
 
-    <div class="modal__title" id="mPlate">—</div>
-    <div class="modal__meta muted" id="mMeta">—</div>
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width: 220px;
+}
+.logo{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  border:3px solid #d4af37;
+  padding:0;
+  background:#000;
+}
+.brand__name{
+  font-weight:900;
+  letter-spacing:.8px;
+  color: var(--gold2);
+}
+.brand__tag{
+  font-size:12px;
+  color: var(--muted);
+}
+.topbar__right{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
 
-    <div class="modal__badges" id="mBadges"></div>
+/* ===== BUTTONS ===== */
+.btn{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition: transform .06s ease, background .2s ease, border-color .2s ease;
+  user-select:none;
+  white-space:nowrap;
+}
+.btn:hover{background: rgba(255,255,255,.10)}
+.btn:active{transform: translateY(1px)}
 
-    <div class="modal__price" id="mPrice">—</div>
-    <div class="modal__desc muted" id="mDesc">—</div>
+.btn--primary{
+  border-color: rgba(212,175,55,.55);
+  background: rgba(212,175,55,.16);
+  font-weight:900;
+}
+.btn--primary:hover{background: rgba(212,175,55,.24)}
 
-    <div class="modal__actions">
-      <a class="btn btn--primary" id="mZalo" target="_blank">Chat Zalo </a>
-      <button class="btn btn--ghost" id="mCopy">Copy link</button>
-    </div>
+.btn--ghost{
+  border-color: rgba(245,215,110,.25);
+  background: rgba(245,215,110,.10);
+}
 
-    <div class="muted small"></div>
-  </div>
-</div>
+/* ===== HERO ===== */
+.hero{
+  padding:18px 0 10px;
+}
+.hero h1{
+  margin:0 0 6px;
+  font-size:34px;
+  line-height:1.15;
+}
+.hero p{margin:0;color:var(--muted)}
 
-<button id="backToTop" aria-label="Lên đầu trang">↑</button>
-  <script src="script.js"></script>
-</body>
-</html>
+.searchrow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:12px 0 10px;
+  align-items:center;
+}
+.searchrow input{
+  flex:1;
+  min-width:240px;
+  padding:12px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  outline:none;
+}
+.searchrow input::placeholder{color: rgba(148,163,184,.85)}
+.searchrow input:focus{border-color: rgba(212,175,55,.55)}
+
+.filters{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap:10px;
+}
+
+/* ===== SELECT (Windows-safe) ===== */
+select{
+  width:100%;
+  padding:11px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#0f1420;
+  color: var(--text);
+  outline:none;
+  appearance: none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+}
+select:focus{border-color: rgba(212,175,55,.55)}
+select option{background:#0f1420;color:var(--text)}
+select option:checked{background:#1b2338;color:var(--gold2)}
+
+.toolrow{
+  margin-top:10px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+}
+.toggle{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  color:var(--muted);
+  font-size:13px;
+}
+.toggle input{transform: translateY(1px)}
+.hint{
+  margin-top:10px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* ===== TRUST ===== */
+.trust{padding:10px 0 2px}
+.trust__grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:10px;
+}
+.trust__card{
+  padding:14px;
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.08);
+  background: var(--panel);
+  box-shadow: var(--shadow2);
+}
+.trust__title{
+  font-weight:900;
+  color: var(--gold2);
+  margin-bottom:6px;
+}
+
+/* ===== STATS ===== */
+.statbar{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:10px;
+  margin:10px 0 14px;
+  align-items:stretch;
+}
+.stat{
+  padding:12px;
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.08);
+  background: var(--panel);
+  box-shadow: var(--shadow2);
+
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  justify-content:center;
+  min-height:96px;
+}
+.stat__num{font-weight:900;font-size:18px;color:var(--gold2)}
+.stat__label{font-size:12px;color:var(--muted)}
+
+.stat--zalo{cursor:pointer}
+.stat--zalo:hover{transform: translateY(-1px)}
+
+/* nút zaloOneTap nếu bạn có dùng */
+#zaloOneTap{
+  width: fit-content;
+  max-width:100%;
+}
+
+/* ===== LIST ===== */
+.list{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:12px;
+  padding:10px 0 18px;
+}
+
+.item{
+  width:100%;
+  padding:14px;
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.08);
+  background: var(--panel);
+  box-shadow: var(--shadow2);
+  overflow:hidden;
+}
+.item:hover{border-color: rgba(212,175,55,.25)}
+
+.item__top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+.plate{
+  display:inline-block;
+  padding:8px 20px;
+
+background: linear-gradient(
+  145deg,
+  #f5f3ed 0%,
+  #ece8df 50%,
+  #f5f3ed 100%
+);
+ color:#111;
+
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:3px;
+
+  border-radius:12px;
+  border:2px solid #111;
+
+  box-shadow:
+    inset 0 0 0 3px rgba(212,175,55,.9),  
+    inset 0 0 0 6px #ffffff,               
+    0 14px 35px rgba(0,0,0,.55);           
+
+  transition: all .25s ease;
+}
+
+.item:hover .plate{
+  transform: translateY(-4px) scale(1.06);
+
+  outline:3px solid #f5d76e;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.65),
+    0 0 20px rgba(212,175,55,.6);
+}
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:6px;
+  color: var(--muted);
+  font-size:12px;
+}
+
+.badge{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+  border:1px solid transparent;
+}
+
+/* sold/available */
+.item.sold{opacity:.58;filter: grayscale(.2)}
+.badge--available{
+  background: rgba(212,175,55,.12);
+  border-color: rgba(212,175,55,.55);
+  color: var(--text);
+}
+.badge--sold{
+  background: rgba(239,68,68,.16);
+  border-color: rgba(239,68,68,.45);
+  color:#fff;
+}
+
+.item__bottom{
+  margin-top:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.price{font-weight:900;color:var(--green)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ===== EMPTY / CARD ===== */
+.empty{
+  padding:16px;
+  border-radius:var(--radius);
+  border:1px dashed rgba(255,255,255,.18);
+  color: var(--muted);
+  margin-bottom:18px;
+}
+.card{
+  padding:16px;
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.08);
+  background: var(--panel);
+  box-shadow: var(--shadow2);
+}
+
+/* ===== FAQ ===== */
+.faq{padding:10px 0 14px}
+details{padding:10px 0;border-top:1px solid rgba(255,255,255,.08)}
+details:first-of-type{border-top:none}
+summary{cursor:pointer;font-weight:800;color:var(--gold2)}
+details p{margin:10px 0 0;color:var(--muted);line-height:1.6}
+
+/* ===== CONTACT ===== */
+.contact{padding:10px 0 40px}
+.contact__actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* ===== FLOATING BUTTONS ===== */
+.floating{
+  position:fixed;
+  right:14px;
+  bottom:14px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  z-index:999;
+}
+.fab{
+  width:72px;
+  height:46px;
+  padding:0;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.10);
+  box-shadow: var(--shadow);
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  /* chống bị giãn như card */
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: none;
+}
+.fab--zalo{border-color: rgba(59,130,246,.45); background: rgba(59,130,246,.20)}
+.fab--call{border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.20)}
+
+/* ===== BACK TO TOP ===== */
+#backToTop{
+  position:fixed;
+  right:14px;
+  bottom:140px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid rgba(212,175,55,.55);
+  background: rgba(11,15,24,.85);
+  color: var(--gold2);
+  font-size:20px;
+  font-weight:900;
+  cursor:pointer;
+  display:none;
+  z-index:999;
+  box-shadow: 0 10px 24px rgba(0,0,0,.45);
+
+  align-items:center;
+  justify-content:center;
+}
+#backToTop:hover{background: rgba(212,175,55,.16)}
+
+/* ===== MODAL ===== */
+.modal{position:fixed;inset:0;z-index:2000}
+.modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.modal__card{
+  position:relative;
+  margin: 64px auto 0;
+  max-width:640px;
+  width: calc(100% - 24px);
+  padding:16px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(11,15,24,.95);
+  box-shadow: var(--shadow);
+}
+.modal__x{
+  position:absolute;
+  right:12px;
+  top:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor:pointer;
+}
+.modal__title{font-size:26px;font-weight:900;color:var(--gold2)}
+.modal__meta{margin-top:6px;color:var(--muted)}
+.modal__badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.modal__price{margin-top:10px;font-size:20px;font-weight:900;color:var(--green)}
+.modal__desc{margin-top:10px;line-height:1.6;color:var(--text)}
+.modal__actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 920px){
+  .filters{grid-template-columns: repeat(2, minmax(0,1fr))}
+  .list{grid-template-columns: 1fr}
+  .statbar{grid-template-columns: 1fr}
+  .trust__grid{grid-template-columns: 1fr}
+}
+
+@media (max-width: 767px){
+  .topbar__inner{gap:10px}
+  .brand{min-width:unset}
+  .logo{width:56px;height:56px}
+
+  .hero h1{font-size:28px}
+
+  .btn{padding:10px 12px}
+  .actions{gap:8px}
+}
+/* ===== MOBILE: HIỆN TAGLINE GỌN GÀNG ===== */
+@media (max-width: 767px){
+  .brand{
+    align-items:flex-start;
+  }
+
+  .brand__tag{
+    display:block;
+    font-size:11px;
+    line-height:1.3;
+    color: var(--muted);
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 767px){
+  .brand__tag{
+    content: "Biển số đẹp · Tư vấn Zalo";
+  }
+}
+.hidden {
+    display: none;
+}
